@@ -67,6 +67,7 @@ const Index = () => {
     setCartQty(childData);
     // console.log("data from child---" + childData);
   };
+
   return (
     <div>
       <SweetAlert
@@ -82,7 +83,7 @@ const Index = () => {
       <Header
         cartqty={cartqty}
         setCartQty={setCartQty}
-        productapicall={apicall}
+        // productapicall={apicall}
         setproductapicall={setapicall}
       />
 

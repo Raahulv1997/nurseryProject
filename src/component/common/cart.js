@@ -17,18 +17,14 @@ const Cart = ({
   const [checkoutAlert, setcheckoutAlert] = useState(false);
   const [apicall, setapicall] = useState(false);
   const navigate = useNavigate();
-  const [cartdata, setCartdata] = useState();
+  const [cartdata, setCartdata] = useState([]);
   const user_token = localStorage.getItem("user_token");
 
   // const updateQty = ContextValue.updateQty;
 
   useEffect(() => {
     async function call_cart_list() {
-      if (
-        user_token !== "" &&
-        user_token !== null &&
-        user_token !== undefined
-      ) {
+      if (user_token !== null) {
         const result = await fetchcartdata();
 
         if (result) {
@@ -38,6 +34,8 @@ const Cart = ({
         setCartdata(result);
         setapicall(false);
       } else {
+        setCartdata([]);
+        cart_count("");
         // alert("please login your account");
       }
     }

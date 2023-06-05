@@ -173,7 +173,6 @@ const ProductBox = ({
               </h6>
             </div>
 
-            {/* {console.log(cart_count)} */}
             {cart_count !== null &&
             cart_count !== "" &&
             cart_count !== undefined ? (
@@ -192,14 +191,8 @@ const ProductBox = ({
                 >
                   <i className="icofont-minus"></i>
                 </button>
-                <input
-                  className="action-input"
-                  title="Quantity Number"
-                  type="text"
-                  name="quantity"
-                  disabled
-                  value={cart_count}
-                />
+                <button className="qtyBox">{cart_count}</button>
+
                 <button
                   className="action-plus"
                   title="Quantity Plus"

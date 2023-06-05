@@ -26,13 +26,15 @@ export const updateCart = async (product_id, qty) => {
 };
 
 export const fetchcartdata = async () => {
-  if (user_token !== "" && user_token !== null && user_token !== undefined) {
+  try {
     const response = await axios.get(
       `${process.env.REACT_APP_BASEURL_0}/cart_list`,
 
       { headers: { user_token: `${user_token}` } }
     );
     return response.data;
+  } catch (err) {
+    return [];
   }
 };
 
@@ -75,6 +77,15 @@ export const allproduct = async (
   currentPage,
   recordsPerPage
 ) => {
+  let token = localStorage.getItem("user_token");
+  let token_obj;
+
+  if (token !== "" && token !== null && token !== undefined) {
+    token_obj = { headers: { user_token: `${token}` } };
+  } else {
+    token_obj = { headers: { user_blank: "true" } };
+  }
+
   const response = await axios.post(
     `${process.env.REACT_APP_BASEURL_0}/search?page=${currentPage}&per_page=${recordsPerPage}`,
     {
@@ -93,9 +104,7 @@ export const allproduct = async (
       is_deleted: ["0"],
     },
 
-    user_token !== null && user_token !== undefined
-      ? { headers: { user_token: user_token } }
-      : { headers: { user_blank: true } }
+    token_obj
   );
   return response.data;
 };
@@ -653,13 +662,6 @@ export const cart_delete_api = async (productID, qty) => {
     {
       headers: { user_token: user_token },
     }
-  );
-  return response.data;
-};
-export const user_cart_api = async (req_body_obj) => {
-  let response = await axios.get(
-    `${process.env.REACT_APP_BASEURL_0}/cart_list`,
-    req_body_obj
   );
   return response.data;
 };
